@@ -20,7 +20,7 @@ class DatacvrVirkSpider(scrapy.Spider):
 
     def parse(self, response, **kwargs):
         self.count += 1
-        cvrs = response.xpath("//div[@class='cvr']/p[2]/text()").extract()
+        cvrs = response.xpath("//div[@class='cvr']/p[2]/text()").extract().rstrip()
         if self.count < self.page_count:
             # print(cvrs)
             for cvr in cvrs:
