@@ -50,6 +50,7 @@ sample = {
     }
 }
 
+
 # semi-universal converter
 def convert(table1, table2, information, cout=0, dict=""):
     table2 = convert_url(table2)
@@ -78,6 +79,7 @@ def convert_url(urls):
         else:
             urls[index] = el.xpath("//div/text()")[0]
     return urls
+
 
 # converter power_to_bind_and_key_individuals_and_auditor
 def convert_power_to_bind_and_key_individuals_and_auditor(table1, table2, information):
@@ -149,7 +151,7 @@ def convert_ptbakiaa_url(table, coordinate=1):
     return table
 
 
-#ovnership converter
+# ovnership converter
 def convert_ownership(table1, table2, information):
     table2 = convert_ownership_url(table2)
     for i in range(0, len(table2) - 1):
@@ -217,6 +219,7 @@ def convert_ownership_url(table):
         else:
             table[index] = check
     return table
+
 
 # history converter
 def convert_history(table, information):
