@@ -20,7 +20,7 @@ class DatacvrVirkSpider(scrapy.Spider):
 
     def parse(self, response, **kwargs):
         self.count += 1
-        cvrs = response.xpath("//div[@class='cvr']/p[2]/text()").extract().rstrip()
+        cvrs = list(map(lambda cvr: cvr.strip(), response.xpath("//div[@class='cvr']/p[2]/text()").getall()))
         if self.count < self.page_count:
             # print(cvrs)
             for cvr in cvrs:
@@ -33,35 +33,35 @@ class DatacvrVirkSpider(scrapy.Spider):
 
     def parse_unit(self, response, **kwargs):
         info = sample
-        company_name = response.xpath("//div[@class='enhedsnavn']/h1/text()").extract_first()
+        company_name = response.xpath("//div[@class='enhedsnavn']/h1/text()").get()
         if company_name:
             info['company_name'] = company_name
         # convert
-        table1 = response.xpath("//div[@class='table stamdata']/div/div[1]/h2/strong/text()").extract()
-        table2 = response.xpath("//div[@class='table stamdata']/div/div[2]").extract()
+        table1 = response.xpath("//div[@class='table stamdata']/div/div[1]/h2/strong/text()").getall()
+        table2 = response.xpath("//div[@class='table stamdata']/div/div[2]").getall()
         info = convert(table1, table2, information=info)
         # convert
-        table3 = response.xpath("//div[@id='collapse_-Flere-Stamdata']/div/div/div[1]/h2/strong/text()").extract()
-        table4 = response.xpath("//div[@id='collapse_-Flere-Stamdata']/div/div/div[2]").extract()
+        table3 = response.xpath("//div[@id='collapse_-Flere-Stamdata']/div/div/div[1]/h2/strong/text()").getall()
+        table4 = response.xpath("//div[@id='collapse_-Flere-Stamdata']/div/div/div[2]").getall()
         info = convert(table3, table4, dict='expanded_business_information', information=info)
         # convert_power_to_bind_and_key_individuals_and_auditor
-        # table5 = response.xpath("//div[@id='collapse_-Tegningsregel-personkreds-og-revisor']/div/div/div[1]/h2/strong/text()").extract()
-        # table6 = response.xpath("//div[@id='collapse_-Tegningsregel-personkreds-og-revisor']/div/div/div[2]").extract()
+        # table5 = response.xpath("//div[@id='collapse_-Tegningsregel-personkreds-og-revisor']/div/div/div[1]/h2/strong/text()").getall()
+        # table6 = response.xpath("//div[@id='collapse_-Tegningsregel-personkreds-og-revisor']/div/div/div[2]").getall()
         # info = convert_power_to_bind_and_key_individuals_and_auditor(table5, table6, information=info)
         # convert_ownership
-        # table7 = response.xpath("//div[@id='collapse_-Ejerforhold']/div/div/div[1]/h2/strong/text()").extract()
-        # table8 = response.xpath("//div[@id='collapse_-Ejerforhold']/div/div/div[2]/div").extract()
+        # table7 = response.xpath("//div[@id='collapse_-Ejerforhold']/div/div/div[1]/h2/strong/text()").getall()
+        # table8 = response.xpath("//div[@id='collapse_-Ejerforhold']/div/div/div[2]/div").getall()
         # info = convert_ownership(table7, table8, information=info)
         # convert information_on_main_company
-        table9 = response.xpath("//div[@id='collapse_-Oplysninger-om-hovedselskab']/div/div/div[1]/h2/strong/text()").extract()
-        table10 = response.xpath("//div[@id='collapse_-Oplysninger-om-hovedselskab']/div/div/div[2]").extract()
+        table9 = response.xpath("//div[@id='collapse_-Oplysninger-om-hovedselskab']/div/div/div[1]/h2/strong/text()").getall()
+        table10 = response.xpath("//div[@id='collapse_-Oplysninger-om-hovedselskab']/div/div/div[2]").getall()
         info = convert(table9, table10, dict='information_on_main_company', information=info)
         # convert production_units
-        table11 = response.xpath("//div[@class='virksomheds-penheder']/div/div/div[1]/h2/strong/text()").extract()
-        table12 = response.xpath("//div[@class='virksomheds-penheder']/div/div/div[2]").extract()
+        table11 = response.xpath("//div[@class='virksomheds-penheder']/div/div/div[1]/h2/strong/text()").getall()
+        table12 = response.xpath("//div[@class='virksomheds-penheder']/div/div/div[2]").getall()
         info = convert(table11, table12, dict='production_units', information=info)
         # convert_history
-        table13 = response.xpath("//div[@id='collapse_-Historisk']/div/div/div").extract()
+        table13 = response.xpath("//div[@id='collapse_-Historisk']/div/div/div").getall()
         info = convert_history(table13, information=info)
         yield info
 

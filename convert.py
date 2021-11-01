@@ -55,10 +55,10 @@ sample = {
 def convert(table1, table2, information, cout=0, dict=""):
     table2 = convert_url(table2)
     for element in table1:
-        element = element.lstrip().rstrip()
+        element = element.strip()
         element = element.lower().split(" ")
         element = '_'.join(element)
-        table2[cout] = table2[cout].lstrip().rstrip()
+        table2[cout] = table2[cout].strip()
         if dict:
             information[dict][element] = table2[cout]
         else:
@@ -85,7 +85,7 @@ def convert_url(urls):
 def convert_power_to_bind_and_key_individuals_and_auditor(table1, table2, information):
     table2 = convert_ptbakiaa_url(table2)
     power = 'power_to_bind_and_key_individuals_and_auditor'
-    information[power]['power_to_bind'] = table2[0][0].lstrip().rstrip()
+    information[power]['power_to_bind'] = table2[0][0].strip()
     for i in range(1, len(table2) - 1):
         free_dict = []
         count_el = 0
@@ -100,29 +100,29 @@ def convert_power_to_bind_and_key_individuals_and_auditor(table1, table2, inform
             for index in range(0, len(table2[i]) - 1, count):
                 # myList.append({'joo': 48, 'par': 28})
                 free_dict.append({
-                    'position': table2[i][index].lstrip().rstrip(),
-                    'name': table2[i][index + 1].lstrip().rstrip(),
-                    'address': table2[i][index + 2].lstrip().rstrip(),
-                    'postal_code': table2[i][index + 3].lstrip().rstrip()[:4],
-                    'city': table2[i][index + 3].lstrip().rstrip()[5:],
-                    'country': table2[i][index + 4].lstrip().rstrip(),
+                    'position': table2[i][index].strip(),
+                    'name': table2[i][index + 1].strip(),
+                    'address': table2[i][index + 2].strip(),
+                    'postal_code': table2[i][index + 3].strip()[:4],
+                    'city': table2[i][index + 3].strip()[5:],
+                    'country': table2[i][index + 4].strip(),
                 })
         elif count == 4:
             for index in range(0, len(table2[i]) - 1, count):
                 free_dict.append({
-                    'name': table2[i][index + 1].lstrip().rstrip(),
-                    'address': table2[i][index + 2].lstrip().rstrip(),
-                    'postal_code': table2[i][index + 3].lstrip().rstrip()[:4],
-                    'city': table2[i][index + 3].lstrip().rstrip()[5:],
-                    'country': table2[i][index + 4].lstrip().rstrip(),
+                    'name': table2[i][index + 1].strip(),
+                    'address': table2[i][index + 2].strip(),
+                    'postal_code': table2[i][index + 3].strip()[:4],
+                    'city': table2[i][index + 3].strip()[5:],
+                    'country': table2[i][index + 4].strip(),
                 })
         elif count == 3:
             for index in range(0, len(table2[i]) - 1, count):
                 free_dict.append({
-                    'name': table2[i][index].lstrip().rstrip(),
-                    'address': table2[i][index + 1].lstrip().rstrip(),
-                    'postal_code': table2[i][index + 2].lstrip().rstrip()[:4],
-                    'city': table2[i][index + 2].lstrip().rstrip()[5:]
+                    'name': table2[i][index].strip(),
+                    'address': table2[i][index + 1].strip(),
+                    'postal_code': table2[i][index + 2].strip()[:4],
+                    'city': table2[i][index + 2].strip()[5:]
                 })
         else:
             print("Нужен лог")
@@ -171,28 +171,28 @@ def convert_ownership(table1, table2, information):
             for index in range(0, len(table2[i]), count):
                 # myList.append({'joo': 48, 'par': 28})
                 free_dict.append({
-                    'name': table2[i][index].lstrip().rstrip(),
-                    'address': table2[i][index + 1].lstrip().rstrip(),
-                    'country': table2[i][index + 2].lstrip().rstrip(),
-                    'pct_of_share_capital': table2[i][index + 3][23:].lstrip().rstrip(),
-                    'pct_of_voting_rights': table2[i][index + 4][23:].lstrip().rstrip(),
-                    'date_of_change': table2[i][index + 5][16:].lstrip().rstrip(),
+                    'name': table2[i][index].strip(),
+                    'address': table2[i][index + 1].strip(),
+                    'country': table2[i][index + 2].strip(),
+                    'pct_of_share_capital': table2[i][index + 3][23:].strip(),
+                    'pct_of_voting_rights': table2[i][index + 4][23:].strip(),
+                    'date_of_change': table2[i][index + 5][16:].strip(),
                 })
         elif count == 7:
             for index in range(0, len(table2[i]), count):
                 free_dict.append({
-                    'name': table2[i][index].lstrip().rstrip(),
-                    'address': table2[i][index + 1].lstrip().rstrip(),
-                    'post': table2[i][index + 2].lstrip().rstrip(),
-                    'country': table2[i][index + 3].lstrip().rstrip(),
-                    'pct_of_share_capital': table2[i][index + 3][23:].lstrip().rstrip(),
-                    'pct_of_voting_rights': table2[i][index + 4][23:].lstrip().rstrip(),
-                    'date_of_change': table2[i][index + 5][16:].lstrip().rstrip(),
+                    'name': table2[i][index].strip(),
+                    'address': table2[i][index + 1].strip(),
+                    'post': table2[i][index + 2].strip(),
+                    'country': table2[i][index + 3].strip(),
+                    'pct_of_share_capital': table2[i][index + 3][23:].strip(),
+                    'pct_of_voting_rights': table2[i][index + 4][23:].strip(),
+                    'date_of_change': table2[i][index + 5][16:].strip(),
                 })
         elif count == 1:
             for index in range(0, len(table2[i]), count):
                 free_dict.append({
-                    'info': table2[i][index].lstrip().rstrip(),
+                    'info': table2[i][index].strip(),
                 })
         else:
             print("Нужен лог")
@@ -256,7 +256,7 @@ def convert_history(table, information):
                 print('continue')
                 continue
 
-            free_dict[i][key] = my_info.lstrip().rstrip()
+            free_dict[i][key] = my_info.strip()
             j += 1
             # print(free_dict)
         information['registration_history_in_danish'] = free_dict
@@ -270,7 +270,7 @@ def convert_history_first(table):
         while '\n' in el:
             el.remove('\n')
         for j, ele in enumerate(el):
-            el[j] = el[j].lstrip().rstrip()
+            el[j] = el[j].strip()
         table[i] = el
         if table[i] == ['Show fewer registrations'] or table[i] == [] or table[i] == ['Close Registration history (in Danish)']:
             table.pop(i)
